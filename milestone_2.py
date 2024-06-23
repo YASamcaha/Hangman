@@ -5,14 +5,14 @@ word_list = ["Bananas","Pineapple","Blueberries","Strawberries","Peaches"]
 
 #chooses a random word using "choice" from the list passed in as arg
 random_word = random.choice(word_list)
-
-
-#Random letter input with conditional checks 
 input_guess = input("Please enter a single letter: ")
 
-#Checking if the guess is 1 long and is also in the alhpabet
-if len(input_guess) == 1 and input_guess.isalpha():
-    print("Good Guess!")
 
-else:
-    print("Oops! That is not a valid input.")
+
+
+#Defining function to check the guess meets parameters
+def input_guess_check():
+#checks if the guess is 1 long and is also in the alphabet
+    if len(input_guess) == 1 and input_guess.isalpha():
+        return True
+        print("Good Guess!")

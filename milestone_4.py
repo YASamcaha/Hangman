@@ -1,15 +1,25 @@
 #Importing previous milestones functions and variables
-from milestone_2 import random_word, word_list, input_guess, input_guess_check, random_word
+from milestone_2 import random_word, input_guess, input_guess_check, random_word
 
 
-guess = input_guess
-random_word
-valid_check = input_guess_check()  
+users_guess = input_guess
+guess_validity_checker = input_guess_check()  
 
 
 #Creating class for hangman game
 class Hangman:
+    '''
+    This class is used to create an instance of the Hangman game.
+
+    Attributes:
+        word_list (list): List of words to be used in the game
+        num_lives (int): Number of lives the user has 
+    '''
+
     def __init__(self,word_list,num_lives = 5):
+        '''
+      See help(Hangman) for accurate signature
+        '''
         self.word_list = word_list
         #Setting default number of lives as 5
         self.num_lives = num_lives
@@ -20,6 +30,13 @@ class Hangman:
     list_of_guesses = []
 
     def check_guess(self, guess):
+        '''
+        This function is used to check if the guess is in the word and how many lives left
+
+        Returns:
+            str: Returns statement depending on if the guess was correct or not
+            int: Number of lives remaining after the guess
+     '''
         #Converting to lowercase
         guess.lower()
         #Check if guess is in random word
@@ -38,20 +55,26 @@ class Hangman:
 
 
     def ask_for_input(self):
+        '''
+        This function asks for user input and checks against a list of guesses 
+
+        Returns:
+            str: Returns statement depending on if the letter has been used previously
+        '''
         while True:
             #Using Check from milestone 2 if false the guess is invalid
-            if valid_check is False:
+            if guess_validity_checker is False:
                 print("Invalid letter. Please, enter a single alphabetical character.") 
                 break
             #Checking if the guess is already in the list of guesses        
-            elif guess in self.list_of_guesses:
+            elif users_guess in self.list_of_guesses:
                 print("You already tried that letter!")
                 break
             #If the guess is not in the list of guesses its checked 
-            # to see if it matches the word and is then added onto the of guesses
+            # to see if it matches the word and is then added onto the list of guesses
             else:
-                self.check_guess(guess) 
-                self.list_of_guesses.append(guess) 
+                self.check_guess(users_guess) 
+                self.list_of_guesses.append(users_guess) 
                 break
                     
 

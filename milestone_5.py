@@ -21,14 +21,22 @@ class Hangman:
         self.num_lives = num_lives
         #Random word selected from list as defined in milestone 2
         self.word_list = ["Apple","Pear","Cherry"]
+        #Converts the word selected to all lowercase
         self.word = random.choice(word_list).lower()
+        #Converts the random word to a list of "_" using lambda function
         self.word_guessed = list(map(lambda letter:letter.replace(letter,"_"),[*self.word]))
+        #Ensures only the unique letters are considered by converting to a set
         self.num_letters = int(len(set(self.word)))
         self.list_of_guesses = []
 
     def check_guess(self, guess):
         '''
         This function is used to check if the guess is in the word and how many lives left
+
+        The purpose of this function is to ensure the guess is all lowercase,
+        and to check the guess is within the randomly selected word. If that is the case, it will match the letter
+        to the list of "_" and replace each instance to give the end user a visual representation of their guess.
+        Each guess also results in a life being lost until the end user wins or loses.
 
         Attributes:
         guess(str): Takes in the user input
@@ -63,19 +71,24 @@ class Hangman:
         '''
         This function asks for user input and checks against a list of guesses 
 
+        This function is the method of asking for user input. 
+        It checks to ensure the input is valid, testing against its length and whether it's alphanumerical.
+        Once checked it returns a statement to inform the user if the guess is valid or if the guess has already been used before.
+        If it has not been used before it is added to the list of guesses to be used in the next round of the game.
+
         Returns:
             str: Returns statement depending on if the letter has been used previously
         '''
         while True:
             guess = input("Please enter a single letter: ")
             if len(guess) != 1 or not guess.isalpha():
-                print("Invalid letter. Please, enter a single alphabetical character.") 
+                print("Invalid letter. Please, enter a single alphabetic character.") 
                 break
             #Checking if the guess is already in the list of guesses        
             elif guess in self.list_of_guesses:
                 print("You already tried that letter!")
                 break
-            #If the guess is not in the list of guesses its checked 
+            #If the guess is not in the list of guesses it's checked 
             # to see if it matches the word and is then added onto the list of guesses
             else:
                 self.check_guess(guess) 
@@ -85,9 +98,25 @@ class Hangman:
 
 
 
+#Timer decorator to time the duration of the game
+import time
+def game_timer(play_game):
+    def wrapper(word_list):
+        time_start_game = time.time()
+        play_game(word_list)
+        time_end_game = time.time()
+        print(f'You played for {round(time_end_game - time_start_game,2)} seconds')
+    return wrapper
+
+
+
+@game_timer
 def play_game(word_list):
     '''
         This function is used to run the game and asks for a list input 
+
+        The main purpose of this function is to continuously run the game until the user loses or wins.
+        Conditions are set depending on the amount of lives left.
 
         Returns:
             str: Returns statement depending on if you have won or lost the game
@@ -99,10 +128,7 @@ def play_game(word_list):
             return print("You lost!")
             
         elif game.num_lives != 0 and game.num_letters == 0:
-            return print("Conragtulations, you won the game!") 
+            return print("Congratulations, you won the game!") 
         else:
             if game.num_letters > 0:
                 game.ask_for_input()
-
-
-         

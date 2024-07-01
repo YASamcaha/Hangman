@@ -21,10 +21,10 @@ The end goal is for the user to correctly guess the word by guessing the letters
 5. Finally the game has a built in timer so you can see how well you performed versus your previous games
 
 
-##  ${\textsf{\color{lightred}File Structure}}$
+##  ${\textsf{\color{purple}File Structure}}$
 Currently the project is set up so that the game is broken up into manageable blocks or milestones.
 Previous iterations of the game can be found in the other "mileston" files
 The main game is run from the "mileston_4.py" file
 
-##  Licence Information
+##  ${\textsf{\color{red}Licence Information}}$
 This project a uses GNU GENERAL PUBLIC LICENSE

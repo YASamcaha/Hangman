@@ -1,5 +1,8 @@
 # <table><tr><td>Hangman</td></tr></table>
 
+
+![alt text](https://cdn.pixabay.com/photo/2012/04/01/19/48/rope-24291_1280.png)
+
 ## ${\textsf{\color{lightblue}What does it do?}}$
 This hangman game uses the functionality of the random module in python to select a random word from a predefined list of words.
 The end goal is for the user to correctly guess the word by guessing the letters before they run out of lives.

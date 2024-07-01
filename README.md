@@ -1,8 +1,4 @@
-# <table><tr><td>Hangman</td></tr></table>
-
-<img width="200px" src="https://cdn.pixabay.com/photo/2012/04/01/19/48/rope-24291_1280.png" alt="image_name png" />
-
-
+# <table><tr><td>Hangman Game</td></tr></table>
 
 ## ${\textsf{\color{lightblue}What does it do?}}$
 This hangman game uses the functionality of the random module in python to select a random word from a predefined list of words.

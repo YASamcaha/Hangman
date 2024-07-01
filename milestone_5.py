@@ -1,7 +1,5 @@
-
+#Importing random module, used to choose a random word from game list
 import random
-
-
 
 
 #Creating class for hangman game
@@ -32,6 +30,9 @@ class Hangman:
         '''
         This function is used to check if the guess is in the word and how many lives left
 
+        Attributes:
+        guess(str): Takes in the user input
+
         Returns:
             str: Returns statement depending on if the guess was correct or not
             int: Number of lives remaining after the guess
@@ -40,20 +41,15 @@ class Hangman:
         guess.lower()
         #Check if guess is in random word
         if guess in self.word:
-            print(f"Good guess! {guess} is in the word.")
-            # for letter in self.word:
-            #         if guess == letter:
-            #             #Finding the index at which the guess is correct 
-            #             # and using it to replace "_" with the guessed letter
-            #                 # self.word_guessed[self.word.index(letter)] = letter
-            #              
-                        
+            print(f"Good guess! {guess} is in the word.")         
+            #Iterates through the word to find the matching guess and index.
+            # Index is then matched to the word_guesses to replace all instances of the letter.            
             for index,letter in enumerate(self.word):
                 if guess == letter:
                     for i, n in enumerate(self.word_guessed):
                         if i == index:
                            self.word_guessed[i] = guess
-
+            #Removing a life once the user has guessed
             self.num_letters -=1
         else:
             self.num_lives -=1
@@ -90,6 +86,12 @@ class Hangman:
 
 
 def play_game(word_list):
+    '''
+        This function is used to run the game and asks for a list input 
+
+        Returns:
+            str: Returns statement depending on if you have won or lost the game
+     '''
     num_lives = 5
     game = Hangman(word_list,num_lives)
     while True:
@@ -103,5 +105,4 @@ def play_game(word_list):
                 game.ask_for_input()
 
 
-play_game(["apple","Pear","Mango","Grape"])
          

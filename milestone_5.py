@@ -1,6 +1,5 @@
-#Importing random module, used to choose a random word from game list
 import random
-
+import time
 
 #Creating class for hangman game
 class Hangman:
@@ -17,14 +16,12 @@ class Hangman:
       See help(Hangman) for accurate signature
         '''
         self.word_list = word_list
-        #Setting default number of lives as 5
         self.num_lives = num_lives
-        #Random word selected from list as defined in milestone 2
-        self.word_list = ["Apple","Pear","Cherry"]
         #Converts the word selected to all lowercase
         self.word = random.choice(word_list).lower()
         #Converts the random word to a list of "_" using lambda function
         self.word_guessed = list(map(lambda letter:letter.replace(letter,"_"),[*self.word]))
+        #(Another way to do above: self.word_guessed = ["_" for letter in self.word])
         #Ensures only the unique letters are considered by converting to a set
         self.num_letters = int(len(set(self.word)))
         self.list_of_guesses = []
@@ -46,7 +43,7 @@ class Hangman:
             int: Number of lives remaining after the guess
      '''
         #Converting to lowercase
-        guess.lower()
+        guess = guess.lower()
         #Check if guess is in random word
         if guess in self.word:
             print(f"Good guess! {guess} is in the word.")         
@@ -54,18 +51,16 @@ class Hangman:
             # Index is then matched to the word_guesses to replace all instances of the letter.            
             for index,letter in enumerate(self.word):
                 if guess == letter:
-                    for i, n in enumerate(self.word_guessed):
-                        if i == index:
-                           self.word_guessed[i] = guess
-            #Removing a life once the user has guessed
+                    # for i, n in enumerate(self.word_guessed):
+                    #     if i == index:
+                    self.word_guessed[index] = guess
+            #Removing a letter if its correct once the user has guessed
             self.num_letters -=1
         else:
             self.num_lives -=1
             print(f"Sorry, {guess} is not in the word. Try again.")
             print(f"You have {self.num_lives} lives left.")
         print(self.word_guessed)
-
-
 
     def ask_for_input(self):
         '''
@@ -79,27 +74,21 @@ class Hangman:
         Returns:
             str: Returns statement depending on if the letter has been used previously
         '''
-        while True:
-            guess = input("Please enter a single letter: ")
-            if len(guess) != 1 or not guess.isalpha():
-                print("Invalid letter. Please, enter a single alphabetic character.") 
-                break
-            #Checking if the guess is already in the list of guesses        
-            elif guess in self.list_of_guesses:
-                print("You already tried that letter!")
-                break
-            #If the guess is not in the list of guesses it's checked 
-            # to see if it matches the word and is then added onto the list of guesses
-            else:
-                self.check_guess(guess) 
-                self.list_of_guesses.append(guess) 
-                break
-                    
+        guess = input("Please enter a single letter: ")
+        if len(guess) != 1 or not guess.isalpha():
+            print("Invalid letter. Please, enter a single alphabetic character.") 
+            
+        #Checking if the guess is already in the list of guesses        
+        elif guess in self.list_of_guesses:
+            print("You already tried that letter!")
+            
+        #If the guess is not in the list of guesses it's checked 
+        # to see if it matches the word and is then added onto the list of guesses
+        else:
+            self.check_guess(guess) 
+            self.list_of_guesses.append(guess) 
+                
 
-
-
-#Timer decorator to time the duration of the game
-import time
 def game_timer(play_game):
     def wrapper(word_list):
         time_start_game = time.time()
@@ -107,8 +96,6 @@ def game_timer(play_game):
         time_end_game = time.time()
         print(f'You played for {round(time_end_game - time_start_game,2)} seconds')
     return wrapper
-
-
 
 @game_timer
 def play_game(word_list):
@@ -125,10 +112,13 @@ def play_game(word_list):
     game = Hangman(word_list,num_lives)
     while True:
         if game.num_lives == 0:
-            return print("You lost!")
-            
+            print("You lost!")
+            break
+            #Can add break, do not return print you can just print
         elif game.num_lives != 0 and game.num_letters == 0:
-            return print("Congratulations, you won the game!") 
-        else:
-            if game.num_letters > 0:
-                game.ask_for_input()
+            print("Congratulations, you won the game!") 
+            break
+        elif game.num_letters > 0:
+            game.ask_for_input()
+
+play_game(["Apple","Mango","Blueberry","Kiwi"])
